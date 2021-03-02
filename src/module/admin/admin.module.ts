@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './controller/user/user.controller';
-import { NewsService } from './service/news/news.service';
-
+//引入公共服务
+import { ArticleService } from '../../service/article/article.service';
+//配置model
+import { TypeOrmModule } from '@nestjs/typeorm';
+import  { User } from '../../enyity/user.entity';
 @Module({
-  controllers: [UserController],
-  providers: [NewsService]
+  imports:[TypeOrmModule.forFeature([User])],
+  controllers: [],
+  providers:[ArticleService]
 })
 export class AdminModule {}

@@ -7,6 +7,7 @@ import {join} from "path";
 
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
+import { AuthGuard } from "./guard/auth.guard";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -20,7 +21,10 @@ async function bootstrap() {
   app.setViewEngine('ejs');
 
   app.use(cookieParser());
-  app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+  app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 6000000 }}))
+
+  //全局配置守卫
+  app.useGlobalGuards(new AuthGuard());
 
 
   await app.listen(3000);
